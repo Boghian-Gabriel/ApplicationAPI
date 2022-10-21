@@ -1,6 +1,10 @@
 # API
 
-:information_source:  First step
+:information_source:  The first time you have to clone the application using: https://github.com/Boghian-Gabriel/ApplicationAPI.git
+:information_source:  Then you have to open the window from Tools ➡️ NuGet Package Manager ➡️ Package Manager Console 
+                      and write the following commands: 
+                      1. EntityFrameworkCore\Enable-Migrations 
+                      2. EntityFrameworkCore\Update-Database
 
 :one:. Learn about API using ASP.NET 6.0  EF Core (Code First Approach).
 
