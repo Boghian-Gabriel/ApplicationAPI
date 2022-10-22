@@ -6,11 +6,11 @@ namespace API.ModelsDTO.MovieDto
 {
     public class MoviesWithDetailsDTO
     {
-        [DisplayName("Movie Title")]
+        [DisplayName("Realese Date")]
         public string? Title { get; set; }
         public DateTime RealeseDate { get; set; }
 
-        [DisplayName("Movie Title")]
+        [DisplayName("Genre Name")]
         public GenreDTO? GenreName { get; set; }
 
         public ICollection<ActorAndAdressDTO>? Actors { get; set; }

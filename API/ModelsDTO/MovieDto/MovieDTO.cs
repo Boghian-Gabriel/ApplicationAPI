@@ -10,6 +10,7 @@ namespace API.ModelsDTO.MovieDto
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("Realese Date")]
         public DateTime RealeseDate { get; set; }
     }
 }
