@@ -38,6 +38,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(UserLoginDTO userLogDTO)
         {
+            ResponseMsg resposne = new ResponseMsg();
             try
             {
                 var searchUserByEmail = await _userRepository.GetUserByEmail(userLogDTO.Email);
@@ -63,7 +64,10 @@ namespace API.Controllers
 
                 return Ok(new
                 {
+                    succes = resposne.isSuccess = true,
+                    message = resposne.Message = "Login successfully", 
                     token = new JwtSecurityTokenHandler().WriteToken(token),
+                    email = userLogDTO.Email,
                     expire = token.ValidTo
                 });
             }
@@ -89,7 +93,7 @@ namespace API.Controllers
                 {
                     var user = _mapper.Map<User>(userRegDTO);
                     await _userRepository.Register(user);
-                    return Ok("User is successfully registered");
+                    return Ok(new ResponseMsg { isSuccess = true, Message = "User is successfully registered"});
                 }
             }
             catch (Exception ex)
