@@ -155,16 +155,28 @@ namespace API.Controllers
 
         #region "UpdateActor"
         [HttpPut]
-        public async Task<IActionResult> UpdateActor(Guid id, ActorDTO actorDTO)
+        public async Task<IActionResult> UpdateActor(Guid id, UpdateActorDTO actorDTO)
         {
             try
             {
+                if (id != actorDTO.ActorId)
+                {
+                    return BadRequest(new ResponseMsg
+                    {
+                        isSuccess = false,
+                        Message = $"The id: '{id}' and id:'{actorDTO.ActorId}'  are not the same!"
+                    });
+                }
                 var actor = _mapper.Map<Actor>(actorDTO);
 
                 if (actor != null)
                 {
                     var result = await _actorRepository.UpdateActor(id, actor);
-                    return Ok(result);
+                    return Ok(new ResponseMsg
+                    {
+                        isSuccess = true,
+                        Message = "The information has been successfully updated"
+                    });
                 }
                 else
                 {

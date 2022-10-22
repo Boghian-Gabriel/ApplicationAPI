@@ -20,7 +20,7 @@ namespace API.ModelsDTO.ActorAdrDto
         public string? City { get; set; }
 
         [Required(ErrorMessage = "ZipCode is required")]
-        [StringLength(20, MinimumLength = 3)]
+        [Range(1, 9999999, ErrorMessage = "Rating must between 1 to 9999999")]
         public int ZipCode { get; set; }
 
         [Required(ErrorMessage = "Country is required")]

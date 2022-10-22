@@ -8,8 +8,7 @@ namespace API.ModelsDTO.MovieDto
         [DisplayName("The Movie title")]
         public string? Title { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DisplayName("Realese Date")]
         public DateTime RealeseDate { get; set; }
     }

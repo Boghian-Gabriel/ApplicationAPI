@@ -12,7 +12,6 @@ namespace API.ModelsDTO.MovieDto
         public string? Title { get; set; }
 
         [Required(ErrorMessage = "Realese Date is required")]
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RealeseDate { get; set; }
 

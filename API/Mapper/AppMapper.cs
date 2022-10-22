@@ -17,6 +17,8 @@ namespace API.Mapper
 
             CreateMap<Actor, ActorDTO>().ReverseMap();
             CreateMap<Actor, ActorAndAdressDTO>().ReverseMap();
+            CreateMap<Actor, UpdateActorDTO>().ReverseMap();
+
 
             CreateMap<ActorAdress, ActorAdressDTO>().ReverseMap();
             CreateMap<ActorAdress, InsertActorAdressWithActorID>().ReverseMap();

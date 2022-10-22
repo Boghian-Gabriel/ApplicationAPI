@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using API.IRepository;
 using AutoMapper;
 using API.ModelsDTO.MovieDto;
+using API.Repository;
 
 namespace API.Controllers
 {
@@ -17,13 +18,15 @@ namespace API.Controllers
         #region "Properties"
         //inject the database context 
         private readonly IMovieRepository _movieRepository;
+        private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region "Constructor"
-        public MoviesController(IMovieRepository movieRepository, IMapper mapper)
+        public MoviesController(IMovieRepository movieRepository,IGenreRepository genreRepository, IMapper mapper)
         {
             _movieRepository = movieRepository;
+            _genreRepository = genreRepository;
             _mapper = mapper;
         }
         #endregion
@@ -118,6 +121,15 @@ namespace API.Controllers
         {
             try
             {
+                var existIdGenreInGenreTable = await _genreRepository.GetGenreById(movieDTO.IdRefGenre);
+                if (existIdGenreInGenreTable == null)
+                {
+                    return BadRequest(new ResponseMsg
+                    {
+                        isSuccess = false,
+                        Message = $"The id: '{movieDTO.IdRefGenre}' was not found in the Genre table to make the association with an movie."
+                    });
+                }
                 var existMovie = await _movieRepository.GetMovieByTitle(movieDTO.Title);
                 if(existMovie != null)
                 {
@@ -144,6 +156,15 @@ namespace API.Controllers
         {
             try
             {
+                if (id != movieDTO.Id)
+                {
+                    return BadRequest(new ResponseMsg
+                    {
+                        isSuccess = false,
+                        Message = $"The id: '{id}' and id:'{movieDTO.Id}'  are not the same!"
+                    });
+                }
+
                 var movie = _mapper.Map<Movie>(movieDTO);
                 if (movie != null)
                 {

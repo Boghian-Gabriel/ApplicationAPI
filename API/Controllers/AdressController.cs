@@ -10,24 +10,26 @@ namespace API.Controllers
     #region "ActorAdressController class"
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ActorAdressController : ControllerBase
+    public class AdressController : ControllerBase
     {
         #region "Properties"
         private readonly IActorAdressRepository _actorAdressRepository;
+        private readonly IActorRepository _actorRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region "Constructor"
-        public ActorAdressController(IActorAdressRepository actorAdressRepository, IMapper mapper)
+        public AdressController(IActorAdressRepository actorAdressRepository, IActorRepository actorRepository, IMapper mapper)
         {
             _actorAdressRepository = actorAdressRepository;
+            _actorRepository = actorRepository;
             _mapper = mapper;
         }
         #endregion
 
         #region "Gel All ActorAdress"
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ActorAdressDTO>>> GetActorAdress()
+        public async Task<ActionResult<IEnumerable<ActorAdressDTO>>> GetAdress()
         {
             try
             {
@@ -53,7 +55,7 @@ namespace API.Controllers
 
         #region "GetActorAdressById"
         [HttpGet("{id}")]
-        public async Task<ActionResult<ActorAdressDTO>> GetActorAdressById(Guid id)
+        public async Task<ActionResult<ActorAdressDTO>> GetAdressById(Guid id)
         {
             try
             {
@@ -78,7 +80,7 @@ namespace API.Controllers
 
         #region "GetActorAdressByZipCode"
         [HttpGet("zip")]
-        public async Task<ActionResult<ActorAdressDTO>> GetActorAdressByZipCode(int zip)
+        public async Task<ActionResult<ActorAdressDTO>> GetAdressByZipCode(int zip)
         {
             try
             {
@@ -105,10 +107,19 @@ namespace API.Controllers
         #region "PostActorAdress"
         [HttpPost]
         //[Authorize]
-        public async Task<ActionResult<ActorAdressDTO>> PostActorAdress(InsertActorAdressWithActorID actorAdrDto)
+        public async Task<ActionResult<ActorAdressDTO>> PostAdress(InsertActorAdressWithActorID actorAdrDto)
         {
             try
             {
+                var existIdInActor = await _actorRepository.GetActorById(actorAdrDto.ActorAdressId);
+                if (existIdInActor == null)
+                {
+                    return BadRequest(new ResponseMsg
+                    {
+                        isSuccess = false,
+                        Message = $"The id: '{actorAdrDto.ActorAdressId}' was not found in the Actor table to make the association with an actor."
+                    });
+                }
                 var actorAdress = _mapper.Map<ActorAdress>(actorAdrDto);
                 var result = await _actorAdressRepository.PostActorAdress(actorAdress);
 
@@ -124,15 +135,28 @@ namespace API.Controllers
         #region "UpdateActorAdress"
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateActorAdress(Guid id, UpdateActorAdressDTO actorAdrDTO)
+        public async Task<IActionResult> UpdateAdress(Guid id, UpdateActorAdressDTO actorAdrDTO)
         {
             try
             {
+                if (id != actorAdrDTO.ActorAdressId)
+                {
+                    return BadRequest(new ResponseMsg
+                    {
+                        isSuccess = false,
+                        Message = $"The id: '{id}' and id:'{actorAdrDTO.ActorAdressId}'  are not the same!"
+                    });
+                }
+
                 var actorAdr = _mapper.Map<ActorAdress>(actorAdrDTO);
                 if (actorAdr != null)
                 {
                     var result = await _actorAdressRepository.UpdateActorAdress(id, actorAdr);
-                    return result;
+                    return Ok(new ResponseMsg
+                    {
+                        isSuccess = true,
+                        Message = "The information has been successfully updated"
+                    });
                 }
                 else
                 {
@@ -150,7 +174,7 @@ namespace API.Controllers
         #region "Delete"
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteActor(Guid id)
+        public async Task<IActionResult> DeleteAdress(Guid id)
         {
             try
             {
