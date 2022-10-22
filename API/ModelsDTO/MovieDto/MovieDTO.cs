@@ -5,7 +5,7 @@ namespace API.ModelsDTO.MovieDto
 {
     public class MovieDTO
     {
-        [DisplayName("Movie Title")]
+        [DisplayName("The Movie title")]
         public string? Title { get; set; }
 
         [DataType(DataType.Date)]
