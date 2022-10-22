@@ -40,7 +40,6 @@ namespace API.Repository
                                      MovieTitle = m.Title,
                                      MovieRealeaseDate = m.RealeseDate,
                                      GenreName = g.GenreName
-
                                  }).ToListAsync();
 
             return await resAnotherWay;

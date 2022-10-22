@@ -28,7 +28,6 @@ namespace API.Mapper
             CreateMap<Movie, UpdateMovieDTO>().ReverseMap();
 
             CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<User, UserNameDTO>().ReverseMap();
             CreateMap<User, UserLoginDTO>().ReverseMap();
             CreateMap<User, UserRegistrationDTO>().ReverseMap();
             CreateMap<User, UpdateUserDTO>().ReverseMap();

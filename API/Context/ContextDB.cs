@@ -41,17 +41,17 @@ namespace API.Context
 
             //populate default table Movies
             modelBuilder.Entity<Movie>().HasData(
-            new Movie { Id = Guid.NewGuid(), Title = "John Wick 1", RealeseDate = DateTime.Parse("2012-02-23"), IdRefGenre = Guid.Parse("7C6ABC48-36C0-4CEC-AED7-0A5161C22B0F") },
-            new Movie { Id = Guid.NewGuid(), Title = "John Wick 2", RealeseDate = DateTime.Parse("207-02-14"), IdRefGenre = Guid.Parse("7C6ABC48-36C0-4CEC-AED7-0A5161C22B0F") },
-            new Movie { Id = Guid.NewGuid(), Title = "Avatar 1", RealeseDate = DateTime.Parse("2008-02-15"), IdRefGenre = Guid.Parse("917C3492-F531-44DE-A321-B9B17A7A90E4") },
-            new Movie { Id = Guid.NewGuid(), Title = "Avatar 2", RealeseDate = DateTime.Parse("2022-12-16"), IdRefGenre = Guid.Parse("917C3492-F531-44DE-A321-B9B17A7A90E4") },
-            new Movie { Id = Guid.NewGuid(), Title = "Mr. Bean", RealeseDate = DateTime.Parse("2008-12-07"), IdRefGenre = Guid.Parse("7252F1BA-4885-411E-9AE2-5B8B801BE464") },
-            new Movie { Id = Guid.NewGuid(), Title = "Film Example3", RealeseDate = DateTime.Parse("2010-06-01"), IdRefGenre = Guid.Parse("1CE57EA2-8B3B-4074-9264-60A92872DD98") },
-            new Movie { Id = Guid.NewGuid(), Title = "Western P2", RealeseDate = DateTime.Parse("2008-04-23"), IdRefGenre = Guid.Parse("D3DBC108-F55A-4ACB-28D7-08DAA4FF6E55") },
-            new Movie { Id = Guid.NewGuid(), Title = "Mascatul", RealeseDate = DateTime.Parse("2000-03-19"), IdRefGenre = Guid.Parse("133D337E-5A77-4107-89DE-210783900C1D") },
-            new Movie { Id = Guid.NewGuid(), Title = "Film Example6", RealeseDate = DateTime.Parse("1934-01-07"), IdRefGenre = Guid.Parse("7C6ABC48-36C0-4CEC-AED7-0A5161C22B0F") },
-            new Movie { Id = Guid.NewGuid(), Title = "Mascatul P2", RealeseDate = DateTime.Parse("1995-11-01"), IdRefGenre = Guid.Parse("133D337E-5A77-4107-89DE-210783900C1D") },
-            new Movie { Id = Guid.NewGuid(), Title = "The horses", RealeseDate = DateTime.Parse("2007-08-02"), IdRefGenre = Guid.Parse("2B44EE54-2D50-437C-996D-40525E268186") }
+            new Movie { Id = Guid.Parse("FCD8E3E5-1B03-4416-8678-0405C63D5D0C"), Title = "John Wick 1", RealeseDate = DateTime.Parse("2012-02-23"), IdRefGenre = Guid.Parse("7C6ABC48-36C0-4CEC-AED7-0A5161C22B0F") },
+            new Movie { Id = Guid.Parse("9B6AEC3F-48EC-4A92-BF12-0598FF4A9D7C"), Title = "John Wick 2", RealeseDate = DateTime.Parse("207-02-14"), IdRefGenre = Guid.Parse("7C6ABC48-36C0-4CEC-AED7-0A5161C22B0F") },
+            new Movie { Id = Guid.Parse("CE17FA4F-7687-4A7B-8B86-1F268AF474C4"), Title = "Avatar 1", RealeseDate = DateTime.Parse("2008-02-15"), IdRefGenre = Guid.Parse("917C3492-F531-44DE-A321-B9B17A7A90E4") },
+            new Movie { Id = Guid.Parse("250BBA42-2D40-495A-914F-27D73E0A4967"), Title = "Avatar 2", RealeseDate = DateTime.Parse("2022-12-16"), IdRefGenre = Guid.Parse("917C3492-F531-44DE-A321-B9B17A7A90E4") },
+            new Movie { Id = Guid.Parse("841AA486-A306-4053-BAC6-36DB7EB079B7"), Title = "Mr. Bean", RealeseDate = DateTime.Parse("2008-12-07"), IdRefGenre = Guid.Parse("7252F1BA-4885-411E-9AE2-5B8B801BE464") },
+            new Movie { Id = Guid.Parse("DDD44DE0-0D4B-4861-9FE4-70E81AD2BA7F"), Title = "Film Example3", RealeseDate = DateTime.Parse("2010-06-01"), IdRefGenre = Guid.Parse("1CE57EA2-8B3B-4074-9264-60A92872DD98") },
+            new Movie { Id = Guid.Parse("F4DA5619-73A5-417C-8975-872D12C7DA71"), Title = "Western P2", RealeseDate = DateTime.Parse("2008-04-23"), IdRefGenre = Guid.Parse("D3DBC108-F55A-4ACB-28D7-08DAA4FF6E55") },
+            new Movie { Id = Guid.Parse("7CBEA0BC-BF83-4985-97F1-BBB68D5CC32E"), Title = "Mascatul", RealeseDate = DateTime.Parse("2000-03-19"), IdRefGenre = Guid.Parse("133D337E-5A77-4107-89DE-210783900C1D") },
+            new Movie { Id = Guid.Parse("E0C51A35-6324-44F4-A094-DD41F0DEB249"), Title = "Film Example6", RealeseDate = DateTime.Parse("1934-01-07"), IdRefGenre = Guid.Parse("7C6ABC48-36C0-4CEC-AED7-0A5161C22B0F") },
+            new Movie { Id = Guid.Parse("B7FCF052-71B1-49D8-9DBD-E23DC66E3F23"), Title = "Mascatul P2", RealeseDate = DateTime.Parse("1995-11-01"), IdRefGenre = Guid.Parse("133D337E-5A77-4107-89DE-210783900C1D") },
+            new Movie { Id = Guid.Parse("DB348D76-8666-4BD1-9A66-F8050AE93018"), Title = "The horses", RealeseDate = DateTime.Parse("2007-08-02"), IdRefGenre = Guid.Parse("2B44EE54-2D50-437C-996D-40525E268186") }
 
              );
 
