@@ -185,7 +185,7 @@ namespace API.Controllers
 
         #region "Delete"
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteMovie(Guid id)
         {
             try

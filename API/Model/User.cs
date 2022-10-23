@@ -11,6 +11,14 @@ namespace API.Model
         public string? Email { get; set; }
         public string? Password { get; set; }
         public bool? isActive { get; set; } = true;
+        public string UserRole { get; set; }
+    }
+
+    //to do...
+    public enum RoleName
+    {
+        Administartor =1,
+        User =2
     }
 
     public class Jwt

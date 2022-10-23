@@ -193,7 +193,7 @@ namespace API.Controllers
 
         #region "Delete"
         [HttpDelete]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteActor(Guid id)
         {
             try

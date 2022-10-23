@@ -14,5 +14,10 @@ namespace API.ModelsDTO.UserDto
         [Required(ErrorMessage = "Password is required")]
         [StringLength(20, MinimumLength = 3)]
         public string? Password { get; set; }
+
+        [Required(ErrorMessage = "RoleName is required")]
+        [StringLength(20, MinimumLength = 4)]
+        public string UserRole { get; set; }
+
     }
 }

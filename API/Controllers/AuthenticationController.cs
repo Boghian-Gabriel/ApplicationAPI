@@ -274,7 +274,8 @@ namespace API.Controllers
                         new Claim("Id", user.UserId.ToString()),
                         //new Claim("UserName", user.UserName),
                         new Claim("Password", user.Email),
-                        new Claim("Email", user.Password)
+                        new Claim("Email", user.Password),
+                        new Claim(ClaimTypes.Role, user.UserRole)
                     };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.key));

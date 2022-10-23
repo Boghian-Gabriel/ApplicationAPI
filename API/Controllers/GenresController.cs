@@ -165,6 +165,7 @@ namespace API.Controllers
 
         #region "UpdateGenre"
         [HttpPut("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateGenre(Guid id, UpdateGenreDTO genreDTO)
         {
             try
@@ -196,7 +197,7 @@ namespace API.Controllers
 
         #region "Delete"
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteGenre(Guid id)
         {
             try
