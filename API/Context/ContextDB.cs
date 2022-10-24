@@ -85,8 +85,8 @@ namespace API.Context
 
             //add default user admin and admin -> user / pass
             modelBuilder.Entity<User>().HasData(
-                new User { UserId = 1, UserName = "Ionescu", Password = "admin", Email="admin@email.com", UserRole = "Administartor" },
-                new User { UserId = 2, UserName = "Marian", Password = "user12", Email= "user@gmail.com", UserRole = "User" }
+                new User { UserId = 1, UserName = "Ionescu", Password = "admin", Email="admin@email.com", UserRole = UserRole.Administrator },
+                new User { UserId = 2, UserName = "Marian", Password = "user12", Email= "user@gmail.com", UserRole = UserRole.User }
                 );
 
         }

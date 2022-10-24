@@ -33,6 +33,7 @@ namespace API.Mapper
             CreateMap<User, UserLoginDTO>().ReverseMap();
             CreateMap<User, UserRegistrationDTO>().ReverseMap();
             CreateMap<User, UpdateUserDTO>().ReverseMap();
+            CreateMap<User, UserRoleDTO>().ReverseMap();
         }
     }
 }

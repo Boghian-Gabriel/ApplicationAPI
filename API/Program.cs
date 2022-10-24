@@ -8,12 +8,14 @@ using API.Repository;
 using API.IRepository;
 using API.Mapper;
 using API.Context;
+using API.Model;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//ADDED BY ME
+//Connection to DataBase
 builder.Services.AddDbContext<ContextDB>(option =>
       option.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
@@ -79,20 +81,23 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 //add services authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
-{
-    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    //Adding Jwt Bearer
+    .AddJwtBearer(option =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]))
-    };
-});
+        option.TokenValidationParameters = new TokenValidationParameters
+        {
+           ValidateIssuer = true,
+           ValidateAudience = true,
+           ValidateLifetime = true,
+           ValidateIssuerSigningKey = true,
+           ValidIssuer = builder.Configuration["Jwt:Issuer"],
+           ValidAudience = builder.Configuration["Jwt:Audience"],
+           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:key"]))
+        };
+    });
 
 
 var app = builder.Build();

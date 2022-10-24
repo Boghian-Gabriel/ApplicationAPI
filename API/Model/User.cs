@@ -14,13 +14,6 @@ namespace API.Model
         public string UserRole { get; set; }
     }
 
-    //to do...
-    public enum RoleName
-    {
-        Administartor =1,
-        User =2
-    }
-
     public class Jwt
     {
         public string? key { get; set; }

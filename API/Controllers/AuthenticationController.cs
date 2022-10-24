@@ -36,7 +36,7 @@ namespace API.Controllers
 
         #region "Login"
         [HttpPost]
-        public async Task<ActionResult> Login(UserLoginDTO userLogDTO)
+        public async Task<ActionResult<UserLoginDTO>> Login(UserLoginDTO userLogDTO)
         {
             ResponseMsg resposne = new ResponseMsg();
             try
@@ -57,7 +57,7 @@ namespace API.Controllers
                 var validateUser = await _userRepository.Login(user);
                 if (validateUser == null)
                 {
-                    return BadRequest("Emails and password is incorrect or not exist");
+                    return BadRequest("Email, password or role is incorrect or not exist");
                 }
 
                 var token = this.getToken(user);
@@ -65,11 +65,11 @@ namespace API.Controllers
                 return Ok(new
                 {
                     succes = resposne.isSuccess = true,
-                    message = resposne.Message = "Login successfully", 
+                    message = resposne.Message = $"Login successfully. You are logged in as: '{searchUserByEmail.UserRole}'",
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     email = userLogDTO.Email,
                     expire = token.ValidTo
-                });
+                }); ;
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace API.Controllers
 
         #region "Get all users"
         [HttpGet]
-        //[Authorize]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         {
             try
@@ -130,7 +130,7 @@ namespace API.Controllers
 
         #region "Get all users"
         [HttpGet("isActive")]
-        //[Authorize]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersActiveInactive(bool isActive = true )
         {
             try
@@ -156,7 +156,7 @@ namespace API.Controllers
 
         #region "Get user by id"
         [HttpGet("{userId}")]
-        [Authorize]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<UserDTO>> GetUserById(int userId)
         {
             try
@@ -183,7 +183,7 @@ namespace API.Controllers
 
         #region "Search information by email field"
         [HttpGet("email")]
-        //[Authorize]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<UserDTO>> SearchUserByEmail(string email)
         {
             try
@@ -205,9 +205,33 @@ namespace API.Controllers
         }
         #endregion
 
+        #region "Search role by email field"
+        [HttpGet("search")]
+        [Authorize(Roles = UserRole.Administrator)]
+        public async Task<ActionResult<UserRoleDTO>> GetUserRoleByEmail(string email)
+        {
+            try
+            {
+                var searchUser = await _userRepository.GetUserByEmail(email);
+
+                if (searchUser == null)
+                {
+                    return BadRequest($"User with email: '{email}' was not found");
+                }
+
+                var result = _mapper.Map<UserRoleDTO>(searchUser);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error " + ex.Message);
+            }
+        }
+        #endregion
+
         #region "Update User"
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> UpdateUser(int id, UpdateUserDTO userUpdateDTO)
         {
             try
@@ -238,7 +262,7 @@ namespace API.Controllers
 
         #region "Delete User"
         [HttpDelete("{userId}")]
-        [Authorize]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             try

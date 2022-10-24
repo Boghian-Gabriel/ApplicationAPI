@@ -193,7 +193,7 @@ namespace API.Controllers
 
         #region "Delete"
         [HttpDelete]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteActor(Guid id)
         {
             try
@@ -215,9 +215,7 @@ namespace API.Controllers
                    "Error" + ex.Message);
             }
         }
-        #endregion
-
-        
+        #endregion      
     }
     #endregion
 }

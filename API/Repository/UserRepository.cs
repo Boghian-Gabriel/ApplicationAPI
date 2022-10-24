@@ -45,9 +45,9 @@ namespace API.Repository
         }
 
         public async Task<User> Login(User user)
-        {
+        { 
             var userLogin = await _contextDB.Users
-                            .Where(u => u.Email == user.Email && u.Password == user.Password)
+                            .Where(u => u.Email == user.Email && u.Password == user.Password && u.UserRole == user.UserRole)
                             .FirstOrDefaultAsync();
 
             return userLogin;
@@ -71,6 +71,7 @@ namespace API.Repository
                 result.Email = user.Email;
                 result.Password = user.Password;
                 result.isActive = user.isActive;
+                result.UserRole = user.UserRole;
 
                 await _contextDB.SaveChangesAsync();
 

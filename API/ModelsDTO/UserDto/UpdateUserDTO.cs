@@ -21,6 +21,10 @@ namespace API.ModelsDTO.UserDto
         public string? Password { get; set; }
 
         [Required(ErrorMessage = "Status is required (true or false)")]
-        public bool? isActive { get; set; } 
+        public bool? isActive { get; set; }
+
+        [Required(ErrorMessage = "RoleName is required")]
+        [StringLength(20, MinimumLength = 4)]
+        public string UserRole { get; set; }
     }
 }
