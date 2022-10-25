@@ -1,11 +1,12 @@
 ﻿using API.Context;
+using API.IRepository.IGenreRepository;
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository
 {
-    public class GenreRepository : Controller, IGenreRepository
+    public class GenreRepository : Controller, ICreatableRepository, IGettableRepository, IUpdateableRepository, IDeleteableRepository
     {
 
         private readonly ContextDB _dbContext;

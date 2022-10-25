@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using API.ModelsDTO.GenreDto;
 using Microsoft.AspNetCore.Authorization;
+using API.IRepository.IGenreRepository;
 
 namespace API.Controllers
 {
@@ -14,15 +15,27 @@ namespace API.Controllers
     public class GenresController : ControllerBase
     {
         #region "Properties"
-        private readonly IGenreRepository _genreRepository;
+        private readonly ICreatableRepository _genreCreateableRepository;
+        private readonly IGettableRepository _genreGettableRepository;
+        private readonly IUpdateableRepository _genreUpdateableRepository;
+        private readonly IDeleteableRepository _genreDeleteableRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region "Constructor"
-        public GenresController(IGenreRepository genreRepository, IMapper mapper)
+        public GenresController(
+                ICreatableRepository genreCreateableRepository, 
+                IMapper mapper,
+                IGettableRepository genreGettableRepository,
+                IUpdateableRepository genreUpdateableRepository,
+                IDeleteableRepository genreDeleteableRepository
+            )
         {
-            _genreRepository = genreRepository;
+            _genreCreateableRepository = genreCreateableRepository;
             _mapper = mapper;
+            _genreGettableRepository = genreGettableRepository;
+            _genreUpdateableRepository = genreUpdateableRepository;
+            _genreDeleteableRepository = genreDeleteableRepository;
         }
         #endregion
 
@@ -32,7 +45,7 @@ namespace API.Controllers
         {
             try
             {
-                var results = await _genreRepository.GetGenres();
+                var results = await _genreGettableRepository.GetGenres();
                 if (results != null)
                 {
                     var resMapper = _mapper.Map<IEnumerable<GenreDTO>>(results);
@@ -59,7 +72,7 @@ namespace API.Controllers
             try
             {
                 //GET THE INFORMATION FROM THE DATABASE!
-                var result = await _genreRepository.GetGenreById(id);
+                var result = await _genreGettableRepository.GetGenreById(id);
 
                 if (result != null)
                 {
@@ -86,7 +99,7 @@ namespace API.Controllers
         {
             try
             {
-                var result = await _genreRepository.SearchGenreByName(searchByName);
+                var result = await _genreGettableRepository.SearchGenreByName(searchByName);
                 if(result != null) 
                 {
                     var resGenreMapper = _mapper.Map<GenreDTO>(result);
@@ -112,7 +125,7 @@ namespace API.Controllers
         {
             try
             {
-                var results = await _genreRepository.GetGenreWithMovies(genreId);
+                var results = await _genreGettableRepository.GetGenreWithMovies(genreId);
                 if (results != null)
                 {
                     var resGenreMapper = _mapper.Map<GenreWithMovieDTO>(results);
@@ -139,7 +152,7 @@ namespace API.Controllers
             ResponseMsg response = new ResponseMsg();
             try
             {
-                var existGenre = await _genreRepository.GetGenreByName(genreDTO.GenreName);
+                var existGenre = await _genreGettableRepository.GetGenreByName(genreDTO.GenreName);
                 if(existGenre != null)
                 {
                     ModelState.AddModelError("GenreName", "The genre name already exists");
@@ -151,7 +164,7 @@ namespace API.Controllers
                 //var genre = new Genre();
                 //genre.GenreName = genreDTO.GenreName;
 
-                response = await _genreRepository.PostGenre(genre);
+                response = await _genreCreateableRepository.PostGenre(genre);
             }
             catch (Exception ex)
             {
@@ -179,7 +192,7 @@ namespace API.Controllers
                 var genre = _mapper.Map<Genre>(genreDTO);
                 if (genre != null)
                 {
-                    var result = await _genreRepository.UpdateGenre(genre.IdGenre, genre);
+                    var result = await _genreUpdateableRepository.UpdateGenre(genre.IdGenre, genre);
                     return StatusCode(StatusCodes.Status200OK, "The information has been updated");
                 }
                 else
@@ -202,13 +215,13 @@ namespace API.Controllers
         {
             try
             {
-                var resultIdToDelete = await _genreRepository.GetGenreById(id);
+                var resultIdToDelete = await _genreGettableRepository.GetGenreById(id);
 
                 if (resultIdToDelete == null)
                 {
                     return NotFound($"Genre with Id: ' {id} ' not found!");
                 }
-                await _genreRepository.DeleteGenre(id);
+                await _genreDeleteableRepository.DeleteGenre(id);
 
                 return Ok($"Genre with Id: ' {id} ' is deleted!");
             }

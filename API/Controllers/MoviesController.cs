@@ -7,6 +7,7 @@ using API.IRepository;
 using AutoMapper;
 using API.ModelsDTO.MovieDto;
 using API.Repository;
+using API.IRepository.IGenreRepository;
 
 namespace API.Controllers
 {
@@ -18,15 +19,15 @@ namespace API.Controllers
         #region "Properties"
         //inject the database context 
         private readonly IMovieRepository _movieRepository;
-        private readonly IGenreRepository _genreRepository;
+        private readonly IGettableRepository _genreGettableRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region "Constructor"
-        public MoviesController(IMovieRepository movieRepository,IGenreRepository genreRepository, IMapper mapper)
+        public MoviesController(IMovieRepository movieRepository, IGettableRepository genreGettableRepository, IMapper mapper)
         {
             _movieRepository = movieRepository;
-            _genreRepository = genreRepository;
+            _genreGettableRepository = genreGettableRepository;
             _mapper = mapper;
         }
         #endregion
@@ -121,7 +122,7 @@ namespace API.Controllers
         {
             try
             {
-                var existIdGenreInGenreTable = await _genreRepository.GetGenreById(movieDTO.IdRefGenre);
+                var existIdGenreInGenreTable = await _genreGettableRepository.GetGenreById(movieDTO.IdRefGenre);
                 if (existIdGenreInGenreTable == null)
                 {
                     return BadRequest(new ResponseMsg

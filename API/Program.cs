@@ -10,6 +10,7 @@ using API.Mapper;
 using API.Context;
 using API.Model;
 using Microsoft.AspNetCore.Identity;
+using API.IRepository.IGenreRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,12 @@ builder.Services.AddDbContext<ContextDB>(option =>
       option.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
 //add dependecy injection
-builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<ICreatableRepository, GenreRepository>();
+builder.Services.AddScoped<IGettableRepository, GenreRepository>();
+builder.Services.AddScoped<IUpdateableRepository, GenreRepository>();
+builder.Services.AddScoped<IDeleteableRepository, GenreRepository>();
+
+
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IActorRepository, ActorRepository>();
 builder.Services.AddScoped<IActorAdressRepository, ActorAdressRepository>();
