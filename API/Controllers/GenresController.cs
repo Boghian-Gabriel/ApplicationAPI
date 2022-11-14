@@ -66,13 +66,13 @@ namespace API.Controllers
         #endregion
 
         #region "GetGenreById"
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GenreDTO>> GetGenreById(Guid id)
+        [HttpGet("{genreId}")]
+        public async Task<ActionResult<GenreDTO>> GetGenreById(Guid genreId)
         {
             try
             {
                 //GET THE INFORMATION FROM THE DATABASE!
-                var result = await _genreGettableRepository.GetGenreById(id);
+                var result = await _genreGettableRepository.GetGenreById(genreId);
 
                 if (result != null)
                 {
@@ -82,7 +82,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound($"The genre with id: ' {id} ' was not found!");
+                    return NotFound($"The genre with id: ' {genreId} ' was not found!");
                 }
             }
             catch (Exception ex)
@@ -94,19 +94,19 @@ namespace API.Controllers
         #endregion
 
         #region "GetGenreByName"
-        [HttpGet("searchByName")]
-        public async Task<ActionResult<GenreDTO>> GetGenreByName(string searchByName)
+        [HttpGet("genreName")]
+        public async Task<ActionResult<GenreDTO>> GetGenreByName(string genreName)
         {
             try
             {
-                var result = await _genreGettableRepository.SearchGenreByName(searchByName);
+                var result = await _genreGettableRepository.SearchGenreByName(genreName);
                 if(result != null) 
                 {
                     var resGenreMapper = _mapper.Map<GenreDTO>(result);
                     return Ok(resGenreMapper); 
                 } else
                 {
-                    return NotFound($"The genre with name: ' {searchByName} ' was not found!");
+                    return NotFound($"The genre with name: ' {genreName} ' was not found!");
                 }
                 
             }
@@ -153,6 +153,7 @@ namespace API.Controllers
             try
             {
                 var existGenre = await _genreGettableRepository.GetGenreByName(genreDTO.GenreName);
+
                 if(existGenre != null)
                 {
                     ModelState.AddModelError("GenreName", "The genre name already exists");
@@ -177,15 +178,16 @@ namespace API.Controllers
         #endregion
 
         #region "UpdateGenre"
-        [HttpPut("{id}")]
-        [Authorize(Roles = UserRole.User)]
-        public async Task<IActionResult> UpdateGenre(Guid id, UpdateGenreDTO genreDTO)
+        [HttpPut("{genreId}")]
+        //[Authorize(Roles = UserRole.User)]
+        [Authorize]
+        public async Task<IActionResult> UpdateGenre(Guid genreId, UpdateGenreDTO genreDTO)
         {
             try
             {
-                if(id != genreDTO.IdGenre)
+                if(genreId != genreDTO.IdGenre)
                 {
-                    ModelState.AddModelError("Id", $"The id: '{id}' and id:'{genreDTO.IdGenre}'  are not the same!");
+                    ModelState.AddModelError("Id", $"The id: '{genreId}' and id:'{genreDTO.IdGenre}'  are not the same!");
                     return BadRequest(ModelState);
                 }
 
@@ -197,42 +199,39 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound($"The genres with id: ' {id} ' was not found!");
+                    return NotFound($"The genres with id: ' {genreId} ' was not found!");
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                                   "Error" + ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
             }
         }
         #endregion
 
         #region "Delete"
-        [HttpDelete("{id}")]
+        [HttpDelete("{genreId}")]
         [Authorize(Roles = UserRole.Administrator)]
-        public async Task<IActionResult> DeleteGenre(Guid id)
+        public async Task<IActionResult> DeleteGenre(Guid genreId)
         {
             try
             {
-                var resultIdToDelete = await _genreGettableRepository.GetGenreById(id);
+                var resultIdToDelete = await _genreGettableRepository.GetGenreById(genreId);
 
                 if (resultIdToDelete == null)
                 {
-                    return NotFound($"Genre with Id: ' {id} ' not found!");
+                    return NotFound($"Genre with Id: ' {genreId} ' not found!");
                 }
-                await _genreDeleteableRepository.DeleteGenre(id);
+                await _genreDeleteableRepository.DeleteGenre(genreId);
 
-                return Ok($"Genre with Id: ' {id} ' is deleted!");
+                return Ok($"Genre with Id: ' {genreId} ' is deleted!");
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error" + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,"Error" + ex.Message);
             }
         }
-        #endregion
-        
+        #endregion     
     }
     #endregion
 }

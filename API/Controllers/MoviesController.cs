@@ -57,15 +57,15 @@ namespace API.Controllers
         #endregion
 
         #region "GetMovieById"
-        [HttpGet("{id}")]
-        public async Task<ActionResult<MovieDTO>> GetMovieById(Guid id)
+        [HttpGet("{movieId}")]
+        public async Task<ActionResult<MovieDTO>> GetMovieById(Guid movieId)
         {
             try
             {
-                var result = await _movieRepository.GetMovie(id);
+                var result = await _movieRepository.GetMovie(movieId);
                 if(result == null)
                 {
-                    return NotFound($"The movie with id: '{id}' was not found");
+                    return NotFound($"The movie with id: '{movieId}' was not found");
                 }
                 else
                 {
@@ -77,7 +77,6 @@ namespace API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database " + ex.Message);
             }
-
         }
         #endregion
 

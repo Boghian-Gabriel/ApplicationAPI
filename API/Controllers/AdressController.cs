@@ -54,12 +54,12 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorAdressById"
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ActorAdressDTO>> GetAdressById(Guid id)
+        [HttpGet("{actorAdressId}")]
+        public async Task<ActionResult<ActorAdressDTO>> GetAdressById(Guid actorAdressId)
         {
             try
             {
-                var result = await _actorAdressRepository.GetActorAdressById(id);
+                var result = await _actorAdressRepository.GetActorAdressById(actorAdressId);
                 if (result != null)
                 {
                     var resActAdrMapper = _mapper.Map<ActorAdressDTO>(result);
@@ -67,7 +67,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound($"The ActorAdress with id: ' {id} ' was not found!");
+                    return NotFound($"The ActorAdress with id: ' {actorAdressId} ' was not found!");
                 }
             }
             catch (Exception ex)
@@ -79,12 +79,12 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorAdressByZipCode"
-        [HttpGet("zip")]
-        public async Task<ActionResult<ActorAdressDTO>> GetAdressByZipCode(int zip)
+        [HttpGet("zipCode")]
+        public async Task<ActionResult<ActorAdressDTO>> GetAdressByZipCode(int zipCode)
         {
             try
             {
-                var result = await _actorAdressRepository.GetActorAdressByZipCode(zip);
+                var result = await _actorAdressRepository.GetActorAdressByZipCode(zipCode);
                 if (result != null)
                 {
                     var resMapper = _mapper.Map<ActorAdressDTO>(result);
@@ -92,7 +92,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound($"The ActorAdress with zipCode: ' {zip} ' was not found!");
+                    return NotFound($"The ActorAdress with zipCode: ' {zipCode} ' was not found!");
                 }
             }
             catch (Exception ex)

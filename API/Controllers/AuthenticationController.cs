@@ -42,7 +42,8 @@ namespace API.Controllers
             try
             {
                 var searchUserByEmail = await _userRepository.GetUserByEmail(userLogDTO.Email);
-                if(searchUserByEmail == null)
+
+                if (searchUserByEmail == null)
                 {
                     return BadRequest($"The username with email: {userLogDTO.Email} does not exists");
                 }
@@ -128,7 +129,7 @@ namespace API.Controllers
         }
         #endregion
 
-        #region "Get all users"
+        #region "Get all users "
         [HttpGet("isActive")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersActiveInactive(bool isActive = true )

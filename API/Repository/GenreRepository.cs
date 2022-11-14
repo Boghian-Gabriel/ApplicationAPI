@@ -13,7 +13,6 @@ namespace API.Repository
 
         public GenreRepository(ContextDB dbContext)
         {
-            
             _dbContext = dbContext;
         }
 
@@ -38,7 +37,7 @@ namespace API.Repository
             var genreName = await _dbContext.Genres
                 .Where(p => p.GenreName == name || p.GenreName == null)
                 .FirstOrDefaultAsync();
-
+                
             return genreName;
         }
 

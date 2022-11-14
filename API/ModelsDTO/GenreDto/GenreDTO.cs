@@ -5,7 +5,8 @@ namespace API.ModelsDTO.GenreDto
 {
     public class GenreDTO
     {
-        [DisplayName(" The Genre name")]
+        public Guid IdGenre { get; set; }
+
         [Required(ErrorMessage = "Genre Name is required")]
         [StringLength(20, MinimumLength = 2)]
         public string? GenreName { get; set; }

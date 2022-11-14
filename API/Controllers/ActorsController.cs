@@ -54,12 +54,12 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorById"
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ActorDTO>> GetActorById(Guid id)
+        [HttpGet("{actorId}")]
+        public async Task<ActionResult<ActorDTO>> GetActorById(Guid actorId)
         {
             try
             {
-                var result = await _actorRepository.GetActorById(id);
+                var result = await _actorRepository.GetActorById(actorId);
                 if (result != null)
                 {
                     var resActorMapper = _mapper.Map<ActorDTO>(result);
@@ -67,7 +67,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return NotFound($"The actor with id: ' {id} ' was not found!");
+                    return NotFound($"The actor with id: ' {actorId} ' was not found!");
                 }
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorByName"
-        [HttpGet("name")]
+        [HttpGet("actorName")]
         public async Task<ActionResult<ActorDTO>> GetActorByName(string fname,  string lname)
         {          
             try
