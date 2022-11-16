@@ -49,7 +49,7 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 
 builder.Services.AddControllers()
            .AddJsonOptions(o => o.JsonSerializerOptions
-           .ReferenceHandler = ReferenceHandler.Preserve);
+           .ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // We can see that Swagger support is added automatically to
 // our project:
@@ -57,7 +57,12 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API.Net Core 6", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    {   
+        Title = "API.Net Core 6", 
+        Version = "v1" ,
+        Description= "API example for learning "
+    });
     c.EnableAnnotations();
     //add security definition
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

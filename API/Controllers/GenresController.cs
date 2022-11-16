@@ -6,6 +6,7 @@ using API.ModelsDTO.GenreDto;
 using Microsoft.AspNetCore.Authorization;
 using API.IRepository.IGenreRepository;
 using Swashbuckle.AspNetCore.Annotations;
+using Newtonsoft.Json;
 
 namespace API.Controllers
 {
