@@ -12,6 +12,7 @@ namespace API.Mapper
         public AppMapper()
         {
             CreateMap<Genre, GenreDTO>().ReverseMap();
+            CreateMap<Genre, GenreNameDTO>().ReverseMap();
             CreateMap<Genre, GenreWithMovieDTO>().ReverseMap();
             CreateMap<Genre, UpdateGenreDTO>().ReverseMap();
 

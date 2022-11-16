@@ -71,7 +71,7 @@ namespace API.Controllers
         #region "GetGenreById"
         [SwaggerOperation(Summary = "Fetches a genre")]
         [HttpGet("{genreId}")]
-        public async Task<ActionResult<GenreDTO>> GetGenreById(Guid genreId)
+        public async Task<ActionResult<GenreNameDTO>> GetGenreById(Guid genreId)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace API.Controllers
                 if (result != null)
                 {
                     //I map to the GenreDTO table to provide to the client
-                    var resGenreMapper = _mapper.Map<GenreDTO>(result);
+                    var resGenreMapper = _mapper.Map<GenreNameDTO>(result);
                     return Ok(resGenreMapper);
                 }
                 else
@@ -100,14 +100,14 @@ namespace API.Controllers
         #region "GetGenreByName"
         [SwaggerOperation(Summary = "Fetches a genre by name")]
         [HttpGet("genreName")]
-        public async Task<ActionResult<GenreDTO>> GetGenreByName(string genreName)
+        public async Task<ActionResult<GenreNameDTO>> GetGenreByName(string genreName)
         {
             try
             {
                 var result = await _genreGettableRepository.SearchGenreByName(genreName);
                 if(result != null) 
                 {
-                    var resGenreMapper = _mapper.Map<GenreDTO>(result);
+                    var resGenreMapper = _mapper.Map<GenreNameDTO>(result);
                     return Ok(resGenreMapper); 
                 } else
                 {
