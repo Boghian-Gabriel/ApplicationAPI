@@ -8,6 +8,7 @@ using AutoMapper;
 using API.ModelsDTO.MovieDto;
 using API.Repository;
 using API.IRepository.IGenreRepository;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers
 {
@@ -33,6 +34,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetAllMovies"
+        [SwaggerOperation(Summary = "Fetches a movies list")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDTO>>> GetAllMovies()
         {
@@ -57,6 +59,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetMovieById"
+        [SwaggerOperation(Summary = "Fetches a movie by Id")]
         [HttpGet("{movieId}")]
         public async Task<ActionResult<MovieDTO>> GetMovieById(Guid movieId)
         {
@@ -81,6 +84,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetMoviesWithGenreName"
+        [SwaggerOperation(Summary = "Fetches movies list with genre name")]
         [HttpGet]
         [Route("GetMoviesWithGenreName")]
         public async Task<IEnumerable<MovieGenre>> GetMoviesWithGenreName()
@@ -91,6 +95,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetMovieWithDetails"
+        [SwaggerOperation(Summary = "Fetches movies list with details")]
         [HttpGet("movieName")]
         //[Route("GetMoviesWithActors")]
         public async Task<ActionResult<IEnumerable<MoviesWithDetailsDTO>>> GetMovieWithDetails(string movieName, bool includeActors = false)
@@ -116,6 +121,7 @@ namespace API.Controllers
         #endregion
 
         #region "PostMovie"
+        [SwaggerOperation(Summary = "Create a movie")]
         [HttpPost]
         public async Task<ActionResult<MovieDTO>> PostMovie(InsertMovieDTO movieDTO)
         {
@@ -151,6 +157,7 @@ namespace API.Controllers
         #endregion
 
         #region "UpdateMovie"
+        [SwaggerOperation(Summary = "Update a movie")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(Guid id,  UpdateMovieDTO movieDTO)
         {
@@ -184,6 +191,7 @@ namespace API.Controllers
         #endregion
 
         #region "Delete"
+        [SwaggerOperation(Summary = "Delete a movie")]
         [HttpDelete("{id}")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteMovie(Guid id)

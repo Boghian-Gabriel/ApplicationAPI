@@ -58,6 +58,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API.Net Core 6", Version = "v1" });
+    c.EnableAnnotations();
     //add security definition
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

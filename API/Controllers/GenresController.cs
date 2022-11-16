@@ -5,6 +5,7 @@ using AutoMapper;
 using API.ModelsDTO.GenreDto;
 using Microsoft.AspNetCore.Authorization;
 using API.IRepository.IGenreRepository;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers
 {
@@ -40,6 +41,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetAllGenres"
+        [SwaggerOperation(Summary = "Fetches a genres list")]
         [HttpGet]
         public async Task<ActionResult<GenreDTO>> GetAllGenres()
         {
@@ -66,6 +68,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetGenreById"
+        [SwaggerOperation(Summary = "Fetches a genre")]
         [HttpGet("{genreId}")]
         public async Task<ActionResult<GenreDTO>> GetGenreById(Guid genreId)
         {
@@ -94,6 +97,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetGenreByName"
+        [SwaggerOperation(Summary = "Fetches a genre by name")]
         [HttpGet("genreName")]
         public async Task<ActionResult<GenreDTO>> GetGenreByName(string genreName)
         {
@@ -119,6 +123,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetGenreWithMovies"
+        [SwaggerOperation(Summary = "Fetches a genre with movies list")]
         [HttpGet("{genreId}")]
         //[Route("GetGenreWithDetails")]
         public async Task<ActionResult<GenreWithMovieDTO>> GetGenreWithMovies(Guid genreId)
@@ -146,6 +151,7 @@ namespace API.Controllers
         #endregion
 
         #region "PostGenre"
+        [SwaggerOperation(Summary = "Create a genre")]
         [HttpPost]
         public async Task<ActionResult> PostGenre(GenreDTO genreDTO)
         {
@@ -179,6 +185,7 @@ namespace API.Controllers
 
         #region "UpdateGenre"
         [HttpPut("{genreId}")]
+        [SwaggerOperation(Summary = "Update a genre")]
         //[Authorize(Roles = UserRole.User)]
         [Authorize]
         public async Task<IActionResult> UpdateGenre(Guid genreId, UpdateGenreDTO genreDTO)
@@ -210,6 +217,7 @@ namespace API.Controllers
         #endregion
 
         #region "Delete"
+        [SwaggerOperation(Summary = "Delete a genre")]
         [HttpDelete("{genreId}")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteGenre(Guid genreId)

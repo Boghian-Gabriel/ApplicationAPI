@@ -4,6 +4,7 @@ using API.ModelsDTO.ActorAdrDto;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers
 {
@@ -28,6 +29,7 @@ namespace API.Controllers
         #endregion
 
         #region "Gel All ActorAdress"
+        [SwaggerOperation(Summary = "Fetches an adress list")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ActorAdressDTO>>> GetAdress()
         {
@@ -54,6 +56,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorAdressById"
+        [SwaggerOperation(Summary = "Fetches an adress by Id")]
         [HttpGet("{actorAdressId}")]
         public async Task<ActionResult<ActorAdressDTO>> GetAdressById(Guid actorAdressId)
         {
@@ -79,6 +82,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorAdressByZipCode"
+        [SwaggerOperation(Summary = "Fetches an adress by ZipCode")]
         [HttpGet("zipCode")]
         public async Task<ActionResult<ActorAdressDTO>> GetAdressByZipCode(int zipCode)
         {
@@ -105,6 +109,7 @@ namespace API.Controllers
         #endregion
 
         #region "PostActorAdress"
+        [SwaggerOperation(Summary = "Create an adress")]
         [HttpPost]
         //[Authorize]
         public async Task<ActionResult<ActorAdressDTO>> PostAdress(InsertActorAdressWithActorID actorAdrDto)
@@ -133,6 +138,7 @@ namespace API.Controllers
         #endregion
 
         #region "UpdateActorAdress"
+        [SwaggerOperation(Summary = "Update an adress")]
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> UpdateAdress(Guid id, UpdateActorAdressDTO actorAdrDTO)
@@ -172,6 +178,7 @@ namespace API.Controllers
         #endregion
 
         #region "Delete"
+        [SwaggerOperation(Summary = "Delete an adress")]
         [HttpDelete("{id}")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteAdress(Guid id)

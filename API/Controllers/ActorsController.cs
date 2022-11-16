@@ -7,6 +7,7 @@ using API.ViewModel_BindModel_;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers
 {
@@ -29,6 +30,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActors"
+        [SwaggerOperation(Summary = "Fetches an actors list")]
         [HttpGet]
         public async Task<ActionResult<ActorDTO>> GetActors()
         {       
@@ -54,6 +56,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorById"
+        [SwaggerOperation(Summary = "Fetches an actor by Id")]
         [HttpGet("{actorId}")]
         public async Task<ActionResult<ActorDTO>> GetActorById(Guid actorId)
         {
@@ -79,6 +82,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorByName"
+        [SwaggerOperation(Summary = "Fetches an actor by name")]
         [HttpGet("actorName")]
         public async Task<ActionResult<ActorDTO>> GetActorByName(string fname,  string lname)
         {          
@@ -104,6 +108,7 @@ namespace API.Controllers
         #endregion
 
         #region "GetActorsWithAdress"
+        [SwaggerOperation(Summary = "Fetches actors list with adress")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ActorAdressVM>>> GetActorsWithAdress()
         {
@@ -127,6 +132,7 @@ namespace API.Controllers
         #endregion
 
         #region "PostActor"
+        [SwaggerOperation(Summary = "Create an actor")]
         [HttpPost]
         public async Task<ActionResult<Actor>> PostActor(ActorDTO actorDTO)
         {  
@@ -154,6 +160,7 @@ namespace API.Controllers
         #endregion
 
         #region "UpdateActor"
+        [SwaggerOperation(Summary = "Update an actor")]
         [HttpPut]
         public async Task<IActionResult> UpdateActor(Guid id, UpdateActorDTO actorDTO)
         {
@@ -192,6 +199,7 @@ namespace API.Controllers
         #endregion
 
         #region "Delete"
+        [SwaggerOperation(Summary = "Delete an actor")]
         [HttpDelete]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteActor(Guid id)

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Data.Entity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -35,6 +36,7 @@ namespace API.Controllers
         }
 
         #region "Login"
+        [SwaggerOperation(Summary = "Login")]
         [HttpPost]
         public async Task<ActionResult<UserLoginDTO>> Login(UserLoginDTO userLogDTO)
         {
@@ -80,6 +82,7 @@ namespace API.Controllers
         #endregion
 
         #region "Register"
+        [SwaggerOperation(Summary = "Register")]
         [HttpPost]
         public async Task<ActionResult<UserRegistrationDTO>> Register(UserRegistrationDTO userRegDTO)
         {
@@ -105,6 +108,7 @@ namespace API.Controllers
         #endregion
 
         #region "Get all users"
+        [SwaggerOperation(Summary = "Fetches an user list")]
         [HttpGet]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
@@ -129,7 +133,8 @@ namespace API.Controllers
         }
         #endregion
 
-        #region "Get all users "
+        #region "Get all users active/inactive "
+        [SwaggerOperation(Summary = "Fetches an (active/inactive) user list")]
         [HttpGet("isActive")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersActiveInactive(bool isActive = true )
@@ -156,6 +161,7 @@ namespace API.Controllers
         #endregion
 
         #region "Get user by id"
+        [SwaggerOperation(Summary = "Fetches an user by Id")]
         [HttpGet("{userId}")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<UserDTO>> GetUserById(int userId)
@@ -183,6 +189,7 @@ namespace API.Controllers
         #endregion
 
         #region "Search information by email field"
+        [SwaggerOperation(Summary = "Search user by email")]
         [HttpGet("email")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<UserDTO>> SearchUserByEmail(string email)
@@ -207,6 +214,7 @@ namespace API.Controllers
         #endregion
 
         #region "Search role by email field"
+        [SwaggerOperation(Summary = "Fetches an user by role(User or Administrator)")]
         [HttpGet("search")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<ActionResult<UserRoleDTO>> GetUserRoleByEmail(string email)
@@ -231,6 +239,7 @@ namespace API.Controllers
         #endregion
 
         #region "Update User"
+        [SwaggerOperation(Summary = "Update an user")]
         [HttpPut("{id}")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> UpdateUser(int id, UpdateUserDTO userUpdateDTO)
@@ -262,6 +271,7 @@ namespace API.Controllers
         #endregion
 
         #region "Delete User"
+        [SwaggerOperation(Summary = "Delete an user")]
         [HttpDelete("{userId}")]
         [Authorize(Roles = UserRole.Administrator)]
         public async Task<IActionResult> DeleteUser(int userId)
